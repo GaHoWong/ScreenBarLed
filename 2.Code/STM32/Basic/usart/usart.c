@@ -11,7 +11,7 @@ struct __FILE {
 }; 
 FILE __stdout;       
 //定义_sys_exit()以避免使用半主机模式    
-_sys_exit(int x){ 
+void _sys_exit(int x){ 
 	x = x; 
 } 
 //重定义fputc函数 
