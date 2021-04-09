@@ -75,7 +75,7 @@ public:
     QPushButton *pushButton_TurnOff;
     QLCDNumber *lcdNumber;
     QGroupBox *groupBox_4;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout;
     QLabel *label_4;
     QSlider *horizontalSlider;
@@ -92,7 +92,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(436, 557);
+        MainWindow->resize(439, 594);
         MainWindow->setToolTipDuration(0);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
@@ -229,19 +229,19 @@ public:
         groupBox_4 = new QGroupBox(widget_6);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(10, 150, 381, 111));
-        widget = new QWidget(groupBox_4);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 361, 92));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget = new QWidget(groupBox_4);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 361, 92));
+        gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
 
         gridLayout->addWidget(label_4, 0, 0, 2, 1);
 
-        horizontalSlider = new QSlider(widget);
+        horizontalSlider = new QSlider(layoutWidget);
         horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
         horizontalSlider->setMaximum(255);
         horizontalSlider->setPageStep(50);
@@ -250,7 +250,7 @@ public:
 
         gridLayout->addWidget(horizontalSlider, 0, 1, 1, 1);
 
-        spinBox = new QSpinBox(widget);
+        spinBox = new QSpinBox(layoutWidget);
         spinBox->setObjectName(QStringLiteral("spinBox"));
         spinBox->setMaximum(255);
         spinBox->setValue(127);
@@ -258,7 +258,7 @@ public:
 
         gridLayout->addWidget(spinBox, 0, 2, 2, 1);
 
-        horizontalSlider_2 = new QSlider(widget);
+        horizontalSlider_2 = new QSlider(layoutWidget);
         horizontalSlider_2->setObjectName(QStringLiteral("horizontalSlider_2"));
         horizontalSlider_2->setMaximum(255);
         horizontalSlider_2->setPageStep(50);
@@ -267,13 +267,13 @@ public:
 
         gridLayout->addWidget(horizontalSlider_2, 1, 1, 2, 1);
 
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
         label_5->setStyleSheet(QStringLiteral("color: rgb(0, 255, 0);"));
 
         gridLayout->addWidget(label_5, 2, 0, 2, 1);
 
-        spinBox_2 = new QSpinBox(widget);
+        spinBox_2 = new QSpinBox(layoutWidget);
         spinBox_2->setObjectName(QStringLiteral("spinBox_2"));
         spinBox_2->setMaximum(255);
         spinBox_2->setValue(127);
@@ -281,7 +281,7 @@ public:
 
         gridLayout->addWidget(spinBox_2, 2, 2, 2, 1);
 
-        horizontalSlider_3 = new QSlider(widget);
+        horizontalSlider_3 = new QSlider(layoutWidget);
         horizontalSlider_3->setObjectName(QStringLiteral("horizontalSlider_3"));
         horizontalSlider_3->setMaximum(255);
         horizontalSlider_3->setPageStep(50);
@@ -290,13 +290,13 @@ public:
 
         gridLayout->addWidget(horizontalSlider_3, 3, 1, 2, 1);
 
-        label_6 = new QLabel(widget);
+        label_6 = new QLabel(layoutWidget);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setStyleSheet(QStringLiteral("color: rgb(0, 0, 255);"));
 
         gridLayout->addWidget(label_6, 4, 0, 1, 1);
 
-        spinBox_3 = new QSpinBox(widget);
+        spinBox_3 = new QSpinBox(layoutWidget);
         spinBox_3->setObjectName(QStringLiteral("spinBox_3"));
         spinBox_3->setMaximum(255);
         spinBox_3->setValue(127);
@@ -311,7 +311,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 436, 26));
+        menubar->setGeometry(QRect(0, 0, 439, 26));
         MainWindow->setMenuBar(menubar);
 
         retranslateUi(MainWindow);
