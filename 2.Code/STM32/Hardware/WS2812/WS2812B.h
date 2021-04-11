@@ -1,34 +1,34 @@
-#ifndef __WS2812B_H 
-#define __WS2812B_H 
+#ifndef __WS2812_H
+#define __WS2812_H
 
-//#include "sys.h"
-#include "delay.h"
 #include "stm32f10x.h"
 
-#define PIXEL_NUM  16//16
-#define GRB  60         //灯珠的数量
+#define PIXEL_NUM 60
 
-#define WS_HIGH 45   //设值占空比为45可满足1码的时间要求，设值占空比为30可满足0码的时间要求。
-#define WS_LOW  30
+//硬件spi模拟ws2811时序（用spi的8位数据模拟ws281x的一位数据）
+//要将系统时钟设置为56M，分频数设置为8，则SPI的通信频率为7M，传输一位数据的时间约为143纳秒（ns）
+//3*143 = 429ns   5*143 = 715ns  符合WS281X芯片的通信时序。
+//  _____   
+// |     |___|   11111000  high level
+//  ___         
+// |   |_____|   11100000  low level
 
-void WS281x_Init(void);
-void WS281x_CloseAll(void);
-uint32_t WS281x_Color(uint8_t red, uint8_t green, uint8_t blue);
-void WS281x_SetPixelColor(uint16_t n, uint32_t GRBColor);
-void WS281x_SetPixelRGB(uint16_t n ,uint8_t red, uint8_t green, uint8_t blue);
-void WS281x_Show(void);
+#define WS_HIGH 0XF8
+#define WS_LOW  0XE0
 
-void WS281x_RainbowCycle(uint8_t wait);
-void WS281x_TheaterChase(uint32_t c, uint8_t wait);
-void WS281x_ColorWipe(uint32_t c, uint8_t wait);
-void WS281x_Rainbow(uint8_t wait);
-void WS281x_TheaterChaseRainbow(uint8_t wait);
+void ws281x_init(void);
+void ws281x_closeAll(void);
+void ws281x_rainbowCycle(uint8_t wait);
+uint32_t ws281x_color(uint8_t red, uint8_t green, uint8_t blue);
+void ws281x_setPixelColor(uint16_t n ,uint32_t GRBcolor);
+void ws281x_show(void);
+
+void ws281x_theaterChase(uint32_t c, uint8_t wait);
+void ws281x_colorWipe(uint32_t c, uint8_t wait);
+void ws281x_rainbow(uint8_t wait);
+void ws281x_theaterChaseRainbow(uint8_t wait);
+uint32_t ColorHSV(uint16_t hue, uint8_t sat, uint8_t val);
+
+
 #endif 
-
-
-
-
-
-
-
 

@@ -4,19 +4,19 @@
 #include <Blinker.h>
 
 #define LED   2  // 板子上的灯 
-char auth[] = "3dc3332ee49f"; // blinker app提供的秘钥
+char auth[] = "80ec0fe22c73"; // blinker app提供的秘钥
 char ssid[] = "GaHo4";// wifi 名字
 char pswd[] = "abc123456";// wifi 密码
 
 bool wsState;
 uint8_t wsMode = BLINKER_CMD_MIOT_DAY;
 // 新建组件对象
-BlinkerButton Button1("btn-abc");//注意：要和APP组件’数据键名’一致
+BlinkerButton Button1("btn-01");//注意：要和APP组件’数据键名’一致
  
 // 按下BlinkerAPP按键即会执行该函数
 void button1_callback(const String & state) {
  BLINKER_LOG("get button state: ", state);
- digitalWrite(LED, !digitalRead(GPIO)); 
+ digitalWrite(LED, !digitalRead(LED)); 
  Blinker.vibrate();
 }
  
