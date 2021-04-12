@@ -378,7 +378,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\CMSIS;.\Lib\inc;.\Lib\src;.\User;.\Startup;.\Basic\delay;.\Basic\sys;.\Hardware\LED;.\Hardware\KEY;.\Basic\usart;.\Basic\adc;.\Hardware\WS2812;.\Basic\tim</IncludePath>
+              <IncludePath>.\CMSIS;.\Lib\inc;.\Lib\src;.\User;.\Startup;.\Basic\delay;.\Basic\sys;.\Hardware\LED;.\Hardware\KEY;.\Basic\usart;.\Basic\adc;.\Hardware\WS2812;.\Basic\tim;.\Hardware\ENCODER</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -571,6 +571,11 @@
               <FileName>WS2812B.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\WS2812\WS2812B.c</FilePath>
+            </File>
+            <File>
+              <FileName>encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\ENCODER\encoder.c</FilePath>
             </File>
           </Files>
         </Group>

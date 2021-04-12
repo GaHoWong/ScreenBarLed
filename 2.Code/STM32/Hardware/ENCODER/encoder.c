@@ -36,7 +36,7 @@ void ENCODER_Init(void){ //接口初始化
 	GPIO_Init(ENCODER_PORT_B,&GPIO_InitStructure);				
 }
 
-u8 ENCODER_READ(void){ //编码器状态读取
+u8 ENCODER_READ(void){ //接口初始化
 	u8 a;//存放按键的值
 	u8 kt;
 	a=0;

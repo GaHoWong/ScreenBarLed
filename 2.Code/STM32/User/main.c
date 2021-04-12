@@ -3,19 +3,23 @@
 #include "adc.h"
 #include "key.h"
 #include "tim.h"
+#include "usart.h"
+#include "encoder.h"
 #include "ws2812b.h"
 extern vu16 ADC_DMA_IN[2]; //声明外部变量
 
 void Init(void)
 {
 	delay_ms(500);         //上电时等待其他器件就绪
-	RCC_Configuration();   //系统时钟初始化 
+	RCC_Configuration();   //系统时钟初始化
+	ENCODER_Init();        //旋转编码器初始化
+	USART1_Init(115200);
 	ADC_Configuration();   //ADC初始化
 	KEY_Init();            //按键初始化
 	ws281x_init();				 //WS2812B初始化
 }
 
-
+/*
 int main (void){
 	Init();
   while(1)
@@ -44,5 +48,23 @@ int main (void){
   }
 }
 
+*/
 
+
+
+int main (void){
+	u8 a=0,b=0;
+	Init();
+	while(1){
+		b=ENCODER_READ();	//读出旋转编码器值	
+		if(b==1){a++;if(a>99)a=0;} //分析按键值，并加减计数器值。
+		if(b==2){if(a==0)a=100;a--;}
+		if(b==3)a=0;
+		if(b!=0){ //如果有旋转器的操作
+//			printf("%d",a/10); //显示数值
+//			printf("%d",a%10);
+			printf("%d",a);
+		}
+}
+}
 
