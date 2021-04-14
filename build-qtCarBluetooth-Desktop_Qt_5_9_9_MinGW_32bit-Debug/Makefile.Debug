@@ -12,11 +12,11 @@ MAKEFILE      = Makefile.Debug
 CC            = gcc
 CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_BLUETOOTH_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
-CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
-CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
+CFLAGS        = -fno-keep-inline-dllexport --sysroot=D:/Qt/Qt5.9.9/Tools/mingw530_32 --target=i686-w64-mingw32 -g -Wall -W -Wextra $(DEFINES)
+CXXFLAGS      = -fno-keep-inline-dllexport --sysroot=D:/Qt/Qt5.9.9/Tools/mingw530_32 --target=i686-w64-mingw32 -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I..\7.APP -I. -ID:\Qt\Qt5.9.9\5.9.9\mingw53_32\include -ID:\Qt\Qt5.9.9\5.9.9\mingw53_32\include\QtWidgets -ID:\Qt\Qt5.9.9\5.9.9\mingw53_32\include\QtGui -ID:\Qt\Qt5.9.9\5.9.9\mingw53_32\include\QtANGLE -ID:\Qt\Qt5.9.9\5.9.9\mingw53_32\include\QtBluetooth -ID:\Qt\Qt5.9.9\5.9.9\mingw53_32\include\QtCore -Idebug -I. -ID:\Qt\Qt5.9.9\5.9.9\mingw53_32\mkspecs\win32-g++ 
 LINKER      =        g++
-LFLAGS        =        -Wl,-subsystem,windows -mthreads
+LFLAGS        =        --sysroot=D:/Qt/Qt5.9.9/Tools/mingw530_32 --target=i686-w64-mingw32 -Wl,-subsystem,windows -mthreads
 LIBS        =        -lmingw32 -LD:\Qt\Qt5.9.9\5.9.9\mingw53_32\lib D:\Qt\Qt5.9.9\5.9.9\mingw53_32\lib\libqtmaind.a -LC:\openssl\lib -LC:\Utils\my_sql\my_sql\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 D:\Qt\Qt5.9.9\5.9.9\mingw53_32\lib\libQt5Widgetsd.a D:\Qt\Qt5.9.9\5.9.9\mingw53_32\lib\libQt5Guid.a D:\Qt\Qt5.9.9\5.9.9\mingw53_32\lib\libQt5Bluetoothd.a D:\Qt\Qt5.9.9\5.9.9\mingw53_32\lib\libQt5Cored.a 
 QMAKE         = D:\Qt\Qt5.9.9\5.9.9\mingw53_32\bin\qmake.exe
 IDC           = idc
@@ -69,7 +69,7 @@ $(DESTDIR_TARGET): ui_mainwindow.h $(OBJECTS)
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
 
 qmake: FORCE
-	@$(QMAKE) -o Makefile.Debug ..\7.APP\qtCarBluetooth.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
+	@$(QMAKE) -o Makefile.Debug ..\7.APP\qtCarBluetooth.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" "QMAKE_CFLAGS+=--sysroot=\"D:/Qt/Qt5.9.9/Tools/mingw530_32\"" "QMAKE_CXXFLAGS+=--sysroot=\"D:/Qt/Qt5.9.9/Tools/mingw530_32\"" "QMAKE_LFLAGS+=--sysroot=\"D:/Qt/Qt5.9.9/Tools/mingw530_32\"" "QMAKE_CFLAGS+=--target=i686-w64-mingw32" "QMAKE_CXXFLAGS+=--target=i686-w64-mingw32" "QMAKE_LFLAGS+=--target=i686-w64-mingw32"
 
 qmake_all: FORCE
 
@@ -99,14 +99,15 @@ compiler_rcc_clean:
 	-$(DEL_FILE) debug\qrc_img.cpp
 debug/qrc_img.cpp: ../7.APP/img.qrc \
 		D:/Qt/Qt5.9.9/5.9.9/mingw53_32/bin/rcc.exe \
-		../7.APP/logo2.png
+		../7.APP/logo2.jpg \
+		../7.APP/bg.jfif
 	D:\Qt\Qt5.9.9\5.9.9\mingw53_32\bin\rcc.exe -name img ..\7.APP\img.qrc -o debug\qrc_img.cpp
 
 compiler_moc_predefs_make_all: debug/moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) debug\moc_predefs.h
 debug/moc_predefs.h: D:/Qt/Qt5.9.9/5.9.9/mingw53_32/mkspecs/features/data/dummy.cpp
-	g++ -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -dM -E -o debug\moc_predefs.h D:\Qt\Qt5.9.9\5.9.9\mingw53_32\mkspecs\features\data\dummy.cpp
+	g++ -fno-keep-inline-dllexport --sysroot=D:/Qt/Qt5.9.9/Tools/mingw530_32 --target=i686-w64-mingw32 -g -std=gnu++11 -Wall -W -Wextra -dM -E -o debug\moc_predefs.h D:\Qt\Qt5.9.9\5.9.9\mingw53_32\mkspecs\features\data\dummy.cpp
 
 compiler_moc_header_make_all: debug/moc_mainwindow.cpp
 compiler_moc_header_clean:

@@ -410,7 +410,7 @@ I (.\Lib\inc\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Lib\inc\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Lib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Lib\inc\misc.h)(0x4D783BB4)
-F (.\User\main.c)(0x60745BB1)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I .\CMSIS -I .\Lib\inc -I .\Lib\src -I .\User -I .\Startup -I .\Basic\delay -I .\Basic\sys -I .\Hardware\LED -I .\Hardware\KEY -I .\Basic\usart -I .\Basic\adc -I .\Hardware\WS2812 -I .\Basic\tim -I .\Hardware\ENCODER-I"D:\Program Files\Keil_v5\ARM\RV31\INC"-I"D:\Program Files\Keil_v5\ARM\CMSIS\Include"-I"D:\Program Files\Keil_v5\ARM\INC\ST\STM32F10x"-D__UVISION_VERSION="530" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
+F (.\User\main.c)(0x60755B0A)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I .\CMSIS -I .\Lib\inc -I .\Lib\src -I .\User -I .\Startup -I .\Basic\delay -I .\Basic\sys -I .\Hardware\LED -I .\Hardware\KEY -I .\Basic\usart -I .\Basic\adc -I .\Hardware\WS2812 -I .\Basic\tim -I .\Hardware\ENCODER-I"D:\Program Files\Keil_v5\ARM\RV31\INC"-I"D:\Program Files\Keil_v5\ARM\CMSIS\Include"-I"D:\Program Files\Keil_v5\ARM\INC\ST\STM32F10x"-D__UVISION_VERSION="530" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
 I (.\Basic\sys\sys.h)(0x606A0A12)
 I (.\CMSIS\stm32f10x.h)(0x4D783CB4)
 I (.\CMSIS\core_cm3.h)(0x4D523B58)
@@ -707,7 +707,7 @@ I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53505C)
 I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E53505C)
 I (.\Basic\sys\sys.h)(0x606A0A12)
 I (.\Basic\delay\delay.h)(0x5A414289)
-F (.\Hardware\ENCODER\encoder.c)(0x5A7B61E9)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I .\CMSIS -I .\Lib\inc -I .\Lib\src -I .\User -I .\Startup -I .\Basic\delay -I .\Basic\sys -I .\Hardware\LED -I .\Hardware\KEY -I .\Basic\usart -I .\Basic\adc -I .\Hardware\WS2812 -I .\Basic\tim -I .\Hardware\ENCODER-I"D:\Program Files\Keil_v5\ARM\RV31\INC"-I"D:\Program Files\Keil_v5\ARM\CMSIS\Include"-I"D:\Program Files\Keil_v5\ARM\INC\ST\STM32F10x"-D__UVISION_VERSION="530" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\obj\encoder.o --omf_browse .\obj\encoder.crf --depend .\obj\encoder.d)
+F (.\Hardware\ENCODER\encoder.c)(0x60756F46)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork -I .\CMSIS -I .\Lib\inc -I .\Lib\src -I .\User -I .\Startup -I .\Basic\delay -I .\Basic\sys -I .\Hardware\LED -I .\Hardware\KEY -I .\Basic\usart -I .\Basic\adc -I .\Hardware\WS2812 -I .\Basic\tim -I .\Hardware\ENCODER-I"D:\Program Files\Keil_v5\ARM\RV31\INC"-I"D:\Program Files\Keil_v5\ARM\CMSIS\Include"-I"D:\Program Files\Keil_v5\ARM\INC\ST\STM32F10x"-D__UVISION_VERSION="530" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\obj\encoder.o --omf_browse .\obj\encoder.crf --depend .\obj\encoder.d)
 I (Hardware\ENCODER\encoder.h)(0x59AEEA2E)
 I (.\Basic\sys\sys.h)(0x606A0A12)
 I (.\CMSIS\stm32f10x.h)(0x4D783CB4)

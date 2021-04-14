@@ -19,7 +19,7 @@ void Init(void)
 	ws281x_init();				 //WS2812B初始化
 }
 
-/*
+
 int main (void){
 	Init();
   while(1)
@@ -27,8 +27,8 @@ int main (void){
      // Some example procedures showing how to display to the pixels:
 //  ws281x_colorWipe(ws281x_color(255, 0, 0), 50); // Red
 //  ws281x_colorWipe(ws281x_color(0, 255, 0), 50); // Green
-    ws281x_colorWipe(ws281x_color(0, 0, 255), 50); // Blue
-		ws281x_colorWipe(ws281x_color(127, 127, 127), 100); // Blue
+   // ws281x_colorWipe(ws281x_color(0, 0, 255), 50); // Blue
+	//	ws281x_colorWipe(ws281x_color(127, 127, 127), 100); // Blue
 //colorWipe(strip.Color(0, 0, 0, 255), 50); // White RGBW
   // Send a theater pixel chase in...
  // ws281x_theaterChase(ws281x_color(127, 127, 127), 100); // White
@@ -36,8 +36,8 @@ int main (void){
 //  ws281x_theaterChase(ws281x_color(0, 0, 127), 50); // Blue
 
   //ws281x_rainbow(20);
-//  ws281x_rainbowCycle(20);
-//  ws281x_theaterChaseRainbow(200);
+  ws281x_rainbowCycle(20);
+ // ws281x_theaterChaseRainbow(200);
 //    
 //    for(i = 0; i < PIXEL_NUM; ++i)
 //  {
@@ -48,23 +48,23 @@ int main (void){
   }
 }
 
-*/
 
 
 
-int main (void){
-	u8 a=0,b=0;
-	Init();
-	while(1){
-		b=ENCODER_READ();	//读出旋转编码器值	
-		if(b==1){a++;if(a>99)a=0;} //分析按键值，并加减计数器值。
-		if(b==2){if(a==0)a=100;a--;}
-		if(b==3)a=0;
-		if(b!=0){ //如果有旋转器的操作
-//			printf("%d",a/10); //显示数值
-//			printf("%d",a%10);
-			printf("%d",a);
-		}
-}
-}
+
+//int main (void){
+//	u8 a=0,b=0;
+//	Init();
+//	while(1){
+//		b=ENCODER_READ();	//读出旋转编码器值	
+//		if(b==1){a++;if(a>99)a=0;} //分析按键值，并加减计数器值。
+//		if(b==2){if(a==0)a=100;a--;}
+//		if(b==3)a=0;
+//		if(b!=0){ //如果有旋转器的操作
+////			printf("%d",a/10); //显示数值
+////			printf("%d",a%10);
+//			printf("%d",a);
+//		}
+//}
+//}
 

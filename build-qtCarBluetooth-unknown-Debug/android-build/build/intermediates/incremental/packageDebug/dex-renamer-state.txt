@@ -1,4 +1,0 @@
-#Fri Apr 09 10:54:16 CST 2021
-base.0=F\:\\666666\\screen-bar-led\\build-qtCarBluetooth-unknown-Debug\\android-build\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
-renamed.0=classes.dex
-file.0=F\:\\666666\\screen-bar-led\\build-qtCarBluetooth-unknown-Debug\\android-build\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
