@@ -1,15 +1,3 @@
-/*
- * ws2812b_fx.c
- *
- * 	Library based on Harm Aldick's Arduino library
- *	https://github.com/kitesurfer1404/WS2812FX
- *
- *	The MIT License.
- *	Created on: 20.10.2018
- *		Author: Mateusz Salamon
- *		www.msalamon.pl
- *		mateusz@msalamon.pl
- */
 #include "stm32f4xx_hal.h"
 #include <stdlib.h>
 

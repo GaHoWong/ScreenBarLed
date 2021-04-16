@@ -1,13 +1,3 @@
-/*
- * ws2812b.h
- *
- *	The MIT License.
- *	Created on: 14.07.2017
- *		Author: Mateusz Salamon
- *		www.msalamon.pl
- *		mateusz@msalamon.pl
- */
-
 #ifndef WS2812B_H_
 #define WS2812B_H_
 #include "sys.h"
