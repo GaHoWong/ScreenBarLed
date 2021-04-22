@@ -89,4 +89,5 @@ void setup() {
 }
 void loop() {
  Blinker.run();
+ printf("1");
 }
