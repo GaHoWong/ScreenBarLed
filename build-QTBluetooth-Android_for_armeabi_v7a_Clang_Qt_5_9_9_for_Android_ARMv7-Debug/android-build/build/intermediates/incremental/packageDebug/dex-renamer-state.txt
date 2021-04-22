@@ -1,0 +1,4 @@
+#Thu Apr 22 21:59:51 CST 2021
+base.0=F\:\\666666\\screen-bar-led\\build-QTBluetooth-Android_for_armeabi_v7a_Clang_Qt_5_9_9_for_Android_ARMv7-Debug\\android-build\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=F\:\\666666\\screen-bar-led\\build-QTBluetooth-Android_for_armeabi_v7a_Clang_Qt_5_9_9_for_Android_ARMv7-Debug\\android-build\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
