@@ -7,6 +7,8 @@
 char auth[] = "80ec0fe22c73"; // blinker app提供的秘钥
 char ssid[] = "GaHo4";// wifi 名字
 char pswd[] = "abc123456";// wifi 密码
+int data = 0;
+
 
 bool wsState;
 uint8_t wsMode = BLINKER_CMD_MIOT_DAY;
@@ -71,6 +73,24 @@ void miotQuery(int32_t queryCode)
     }
 }
 
+
+void led_control(void){
+  if (Serial.available() > 0)//串口接收到数据
+  {
+    data = Serial.read();//获取串口接收到的数据
+    if (data == '1')
+    {
+      Serial.println("ok!");
+      digitalWrite(LED, !digitalRead(LED)); 
+    }else{
+      Serial.println(Serial.available()); //输出等待的字符数
+    }
+  }
+  else{
+    Serial.print("no");
+  }
+}
+
 void setup() {
  // 初始化串口，并开启调试信息，调试用可以删除
  Serial.begin(115200); 
@@ -89,5 +109,5 @@ void setup() {
 }
 void loop() {
  Blinker.run();
- printf("1");
+ led_control();
 }
