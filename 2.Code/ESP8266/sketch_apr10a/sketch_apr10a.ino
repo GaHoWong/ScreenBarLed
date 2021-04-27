@@ -82,6 +82,8 @@ void led_control(void){
     {
       Serial.println("ok!");
       digitalWrite(LED, !digitalRead(LED)); 
+
+      
     }else{
       Serial.println(Serial.available()); //输出等待的字符数
     }

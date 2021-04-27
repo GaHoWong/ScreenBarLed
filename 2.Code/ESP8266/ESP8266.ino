@@ -8,23 +8,25 @@
 #define LED   2  // 板子上的灯 
 #define PIN 2  //  DIN PIN (GPIO15, D8)
 #define NUMPIXELS 3  // Number of you led
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(3, PIN, NEO_GRB + NEO_KHZ800);
-
-String comdata = "";//定义接收的字符buff
-int numdata[10] = {0};
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 char auth[] = "80ec0fe22c73";/****秘钥****/
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+String comdata = "";//定义接收的字符buff
+int numdata[10] = {0};
+int LED_R=0,LED_G=0,LED_B=0,LED_Bright=180;// RGB和亮度
+int colorT;//色温
+
+bool WIFI_Status = true;
+uint8_t wsMode = BLINKER_CMD_MIOT_DAY;
 
 
 // 新建组件对象
 BlinkerRGB RGB1("RGB");
-BlinkerSlider Color_temperature ("temp");
+BlinkerSlider LED_Brightness ("Bright");
 
 
 
-int LED_R=0,LED_G=0,LED_B=0,LED_Bright=180;// RGB和亮度
-bool WIFI_Status = true;
+
 void smartConfig()//配网函数
 {
   WiFi.mode(WIFI_STA);
@@ -76,6 +78,11 @@ void WIFI_Set()//
      Serial.println(WiFi.localIP());
 }
 
+
+
+
+
+
 void SET_RGB(int R,int G,int B,int bright)
 {
     for (uint16_t i = 0; i < NUMPIXELS; i++) //把灯条变色
@@ -84,7 +91,32 @@ void SET_RGB(int R,int G,int B,int bright)
     }
     pixels.setBrightness(bright);//亮度
     pixels.show();    //送出显示
+    LED_R = R;
+    LED_G = G;
+    LED_B = B;
 }
+//设置亮度
+void SET_LED_Brightness(int bright)
+{
+  Serial.println(bright);
+  if(bright >180){bright=180;}
+  else if(bright <0){bright=0;}
+  while(LED_Bright != bright){
+     if(LED_Bright>bright){
+      LED_Bright--;
+      pixels.setBrightness(LED_Bright);
+      }//亮度--
+     else if(LED_Bright<bright){
+      LED_Bright++;
+      pixels.setBrightness(LED_Bright);
+      }//亮度++
+     Serial.println(LED_Bright);
+     pixels.show();
+     delay(2);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+     }
+    LED_Bright = bright;
+}
+
 //APP RGB颜色设置回调
 void rgb1_callback(uint8_t r_value, uint8_t g_value, 
                     uint8_t b_value, uint8_t bright_value)
@@ -100,24 +132,119 @@ void rgb1_callback(uint8_t r_value, uint8_t g_value,
 }
 
 
-void SET_Color_temperature(int bright)
-{
-    for (uint16_t i = 0; i < NUMPIXELS; i++) //把灯条变色
-    {
-        pixels.setPixelColor(i,255,255,255);
-    }
-    pixels.setBrightness(bright);//亮度
-    pixels.show();    //送出显示
-}
+
 //APP RGB颜色设置回调
-void Color_temperature_callback(int bright_value)
+void LED_Brightness_callback(int bright_value)
 {
-    BLINKER_LOG("Rrightness value: ", bright_value);
+    BLINKER_LOG("Brightness value: ", bright_value);
+    
     LED_Bright = bright_value;
-    SET_Color_temperature(LED_Bright);
+    pixels.setBrightness(LED_Bright);
+    pixels.show();
+    
 }
 
 
+
+//小爱电源类回调
+void miotPowerState(const String & state)
+{
+  BLINKER_LOG("need set power state: ", state);
+  if (state == BLINKER_CMD_ON) {
+    //digitalWrite(LED_BUILTIN, LOW);
+    SET_RGB(255, 255, 255, 255);
+    BlinkerMIOT.powerState("on");
+    BlinkerMIOT.print();
+  }
+  else if (state == BLINKER_CMD_OFF) {
+    //digitalWrite(LED_BUILTIN, HIGH);
+    SET_RGB(255, 255, 255, 0);
+    BlinkerMIOT.powerState("off");
+    BlinkerMIOT.print();
+  }
+}
+
+//小爱设置颜色回调
+void miotColor(int32_t color)
+{
+  BLINKER_LOG("need set color: ", color);
+  int colorR, colorG, colorB;
+  colorR = color >> 16 & 0xFF;
+  colorG = color >>  8 & 0xFF;
+  colorB = color       & 0xFF;
+
+  BLINKER_LOG("colorR: ", colorR, ", colorG: ", colorG, ", colorB: ", colorB);
+  SET_RGB(colorR, colorG, colorB, LED_Bright);
+  //pixelShow();
+
+  BlinkerMIOT.color(color);//反馈小爱控制状态
+  BlinkerMIOT.print();
+}
+//小爱调亮度回调
+void miotBright(const String & bright)
+{
+  BLINKER_LOG("need set brightness: ", bright);
+
+  int colorW = bright.toInt();
+
+  BLINKER_LOG("now set brightness: ", colorW);
+  LED_Bright = (int)(1.8*colorW);
+//  if (LED_Bright >= 80 && LED_Bright <= 100) {
+//    SET_RGB(255, 255, 255, 255);
+//  } else if (LED_Bright >= 40 && LED_Bright <= 79) {
+//    SET_RGB(125, 125, 125, 125);
+//  } else if (LED_Bright >= 1 && LED_Bright <= 39) {
+//    SET_RGB(50, 50, 50, 50);
+//  }
+  SET_LED_Brightness(LED_Bright);
+  Serial.printf("亮度调节中...%d", colorW);
+
+  BlinkerMIOT.brightness(colorW);//反馈小爱控制状态
+  BlinkerMIOT.print();
+}
+
+//小爱模式回调
+void miotMode(uint8_t mode)
+{
+    BLINKER_LOG("need set mode: ", mode);
+
+    if (mode == BLINKER_CMD_MIOT_DAY) {//日光模式
+        // Your mode function
+    }
+    else if (mode == BLINKER_CMD_MIOT_NIGHT) {//夜光模式
+        colorWipe(pixels.Color(255, 0, 0), 50);
+    }
+    else if (mode == BLINKER_CMD_MIOT_COLOR) {//彩光模式
+        rainbow(50);
+    }
+    else if (mode == BLINKER_CMD_MIOT_WARMTH) {//温馨模式
+        colorWipe(pixels.Color(255,255, 255), 50);
+    }
+    else if (mode == BLINKER_CMD_MIOT_TV) {//电视模式
+        rainbowCycle(20);
+    }
+    else if (mode == BLINKER_CMD_MIOT_READING) {//阅读模式
+        colorWipe(pixels.Color(255,255, 255), 50);
+    }
+    else if (mode == BLINKER_CMD_MIOT_COMPUTER) {//电脑模式
+        rainbow(80);
+    }
+
+    wsMode = mode;
+
+    BlinkerMIOT.mode(mode);
+    BlinkerMIOT.print();
+}
+//小爱色温，色温范围为1000-10000
+void miotColoTemp(int32_t colorTemp)
+{
+    BLINKER_LOG("need set colorTemperature: ", colorTemp);
+
+    colorT = colorTemp;
+
+    BlinkerMIOT.colorTemp(colorTemp);
+    BlinkerMIOT.print();
+}
 
 
 void STM32_control(void){
@@ -150,22 +277,22 @@ void STM32_control(void){
           case 1:SET_RGB(numdata[1],numdata[2],numdata[3],numdata[4]);break; //设置RGB及亮度值 
           case 2:SET_RGB(numdata[1],numdata[2],numdata[3],numdata[4]);break; //设置RGB及亮度值   
           case 3:pixels.clear();pixels.show();break;//清除颜色
-          case 4:pixels.setBrightness(numdata[1]);pixels.show();break;//设置亮度
+          case 4:SET_LED_Brightness(numdata[1]);break;//设置亮度
           case 5:rainbow(20);break;
           case 6:rainbowCycle(20);break;
           case 7:theaterChaseRainbow(50);break;
-          case 8:colorWipe(strip.Color(255, 0, 0), 50); // Red
-                 colorWipe(strip.Color(0, 255, 0), 50); // Green
-                 colorWipe(strip.Color(0, 0, 255), 50); // Blue
+          case 8:colorWipe(pixels.Color(255, 0, 0), 50); // Red
+                 colorWipe(pixels.Color(0, 255, 0), 50); // Green
+                 colorWipe(pixels.Color(0, 0, 255), 50); // Blue
                  break;
-          case 9:theaterChase(strip.Color(127, 127, 127), 50); // White
-                 theaterChase(strip.Color(127, 0, 0), 50); // Red
-                 theaterChase(strip.Color(0, 0, 127), 50); // Blue
+          case 9:theaterChase(pixels.Color(127, 127, 127), 50); // White
+                 theaterChase(pixels.Color(127, 0, 0), 50); // Red
+                 theaterChase(pixels.Color(0, 0, 127), 50); // Blue
                   break;
           case 10:WIFI_Set();Blinker.begin(auth, WiFi.SSID().c_str(), WiFi.psk().c_str());break;
           default:break;
           }
-      for(int i = 0; i <= comdata.length() ; i++)//清空接收到的数据
+      for(int i = 0; i <= 10 ; i++)//清空接收到的数据
         {
           Serial.println(numdata[i]);
           numdata[i]=0;
@@ -187,7 +314,16 @@ void setup() {
     #endif
 
     RGB1.attach(rgb1_callback);//注册调节颜色的回调函数
-    Color_temperature.attach(Color_temperature_callback);//注册调节颜色的回调函数
+    LED_Brightness.attach(LED_Brightness_callback);//注册调节亮度的回调函数
+
+
+    BlinkerMIOT.attachPowerState(miotPowerState);//小爱开关
+    BlinkerMIOT.attachColor(miotColor);//小爱调节颜色
+    BlinkerMIOT.attachBrightness(miotBright);//小爱调节RGB亮度
+    BlinkerMIOT.attachMode(miotMode);//小爱屏幕挂灯模式
+    BlinkerMIOT.attachColorTemperature(miotColoTemp);//小爱色温模式
+
+    
     
 }
 
@@ -200,9 +336,9 @@ void loop() {
 //RGB
 // Fill the dots one after the other with a color
 void colorWipe(uint32_t c, uint8_t wait) {
-  for(uint16_t i=0; i<strip.numPixels(); i++) {
-    strip.setPixelColor(i, c);
-    strip.show();
+  for(uint16_t i=0; i<pixels.numPixels(); i++) {
+    pixels.setPixelColor(i, c);
+    pixels.show();
     delay(wait);
   }
 }
@@ -211,10 +347,10 @@ void rainbow(uint8_t wait) {
   uint16_t i, j;
 
   for(j=0; j<256; j++) {
-    for(i=0; i<strip.numPixels(); i++) {
-      strip.setPixelColor(i, Wheel((i+j) & 255));
+    for(i=0; i<pixels.numPixels(); i++) {
+      pixels.setPixelColor(i, Wheel((i+j) & 255));
     }
-    strip.show();
+    pixels.show();
     delay(wait);
   }
 }
@@ -224,10 +360,10 @@ void rainbowCycle(uint8_t wait) {
   uint16_t i, j;
 
   for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
-    for(i=0; i< strip.numPixels(); i++) {
-      strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+    for(i=0; i< pixels.numPixels(); i++) {
+      pixels.setPixelColor(i, Wheel(((i * 256 / pixels.numPixels()) + j) & 255));
     }
-    strip.show();
+    pixels.show();
     delay(wait);
   }
 }
@@ -236,15 +372,15 @@ void rainbowCycle(uint8_t wait) {
 void theaterChase(uint32_t c, uint8_t wait) {
   for (int j=0; j<10; j++) {  //do 10 cycles of chasing
     for (int q=0; q < 3; q++) {
-      for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
-        strip.setPixelColor(i+q, c);    //turn every third pixel on
+      for (uint16_t i=0; i < pixels.numPixels(); i=i+3) {
+        pixels.setPixelColor(i+q, c);    //turn every third pixel on
       }
-      strip.show();
+      pixels.show();
 
       delay(wait);
 
-      for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
-        strip.setPixelColor(i+q, 0);        //turn every third pixel off
+      for (uint16_t i=0; i < pixels.numPixels(); i=i+3) {
+        pixels.setPixelColor(i+q, 0);        //turn every third pixel off
       }
     }
   }
@@ -254,15 +390,15 @@ void theaterChase(uint32_t c, uint8_t wait) {
 void theaterChaseRainbow(uint8_t wait) {
   for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
     for (int q=0; q < 3; q++) {
-      for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
-        strip.setPixelColor(i+q, Wheel( (i+j) % 255));    //turn every third pixel on
+      for (uint16_t i=0; i < pixels.numPixels(); i=i+3) {
+        pixels.setPixelColor(i+q, Wheel( (i+j) % 255));    //turn every third pixel on
       }
-      strip.show();
+      pixels.show();
 
       delay(wait);
 
-      for (uint16_t i=0; i < strip.numPixels(); i=i+3) {
-        strip.setPixelColor(i+q, 0);        //turn every third pixel off
+      for (uint16_t i=0; i < pixels.numPixels(); i=i+3) {
+        pixels.setPixelColor(i+q, 0);        //turn every third pixel off
       }
     }
   }
@@ -273,12 +409,12 @@ void theaterChaseRainbow(uint8_t wait) {
 uint32_t Wheel(byte WheelPos) {
   WheelPos = 255 - WheelPos;
   if(WheelPos < 85) {
-    return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+    return pixels.Color(255 - WheelPos * 3, 0, WheelPos * 3);
   }
   if(WheelPos < 170) {
     WheelPos -= 85;
-    return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+    return pixels.Color(0, WheelPos * 3, 255 - WheelPos * 3);
   }
   WheelPos -= 170;
-  return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+  return pixels.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
 }
