@@ -7,13 +7,13 @@
 
 #define LED   2  // 板子上的灯 
 #define PIN 2  //  DIN PIN (GPIO15, D8)
-#define NUMPIXELS 3  // Number of you led
+#define NUMPIXELS 45  // Number of you led
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 char auth[] = "80ec0fe22c73";/****秘钥****/
 String comdata = "";//定义接收的字符buff
 int numdata[10] = {0};
-int LED_R=0,LED_G=0,LED_B=0,LED_Bright=180;// RGB和亮度
+int LED_R=255,LED_G=255,LED_B=255,LED_Bright=180;// RGB和亮度
 int colorT;//色温
 
 bool WIFI_Status = true;
@@ -304,11 +304,13 @@ void STM32_control(void){
 
 void setup() {
     // 初始化串口
+    pinMode(LED_BUILTIN, OUTPUT);
+    pixels.begin();//WS2812初始化
+
     Serial.begin(115200);
     
-    pixels.begin();//WS2812初始化
-    pixels.show();
-    pinMode(LED_BUILTIN, OUTPUT);
+
+    
     #if defined(BLINKER_PRINT)
         BLINKER_DEBUG.stream(BLINKER_PRINT);
     #endif
@@ -322,14 +324,17 @@ void setup() {
     BlinkerMIOT.attachBrightness(miotBright);//小爱调节RGB亮度
     BlinkerMIOT.attachMode(miotMode);//小爱屏幕挂灯模式
     BlinkerMIOT.attachColorTemperature(miotColoTemp);//小爱色温模式
-
-    
-    
+    delay(100); 
+    pixels.clear();
+    SET_RGB(0,0,0,180);     
+    pixels.show();
+    delay(1000);
 }
 
 void loop() {
  STM32_control();
  Blinker.run();
+ rainbow(50);
 }
 
 
