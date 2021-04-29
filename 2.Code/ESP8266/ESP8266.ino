@@ -334,7 +334,6 @@ void setup() {
 void loop() {
  STM32_control();
  Blinker.run();
- rainbow(50);
 }
 
 
