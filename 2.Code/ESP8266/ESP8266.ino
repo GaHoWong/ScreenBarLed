@@ -273,9 +273,9 @@ void STM32_control(void){
         }
         comdata = String("");//清空缓存
         switch (numdata[0]) { 
-          case 0:pixels.setBrightness(0);pixels.show();break; //设置RGB及亮度值 
+          case 0:pixels.setBrightness(0);pixels.show();break; //关
           case 1:SET_RGB(numdata[1],numdata[2],numdata[3],numdata[4]);break; //设置RGB及亮度值 
-          case 2:SET_RGB(numdata[1],numdata[2],numdata[3],numdata[4]);break; //设置RGB及亮度值   
+          case 2:SET_RGB(255, 255, 255, 80);pixels.show();break ;//开
           case 3:pixels.clear();pixels.show();break;//清除颜色
           case 4:SET_LED_Brightness(numdata[1]);break;//设置亮度
           case 5:rainbow(20);break;
@@ -285,11 +285,12 @@ void STM32_control(void){
                  colorWipe(pixels.Color(0, 255, 0), 50); // Green
                  colorWipe(pixels.Color(0, 0, 255), 50); // Blue
                  break;
-          case 9:theaterChase(pixels.Color(127, 127, 127), 50); // White
+          case 9:
                  theaterChase(pixels.Color(127, 0, 0), 50); // Red
                  theaterChase(pixels.Color(0, 0, 127), 50); // Blue
+                 theaterChase(pixels.Color(127, 127, 127), 50); // White
                   break;
-          case 10:WIFI_Set();Blinker.begin(auth, WiFi.SSID().c_str(), WiFi.psk().c_str());break;
+          case 10:theaterChaseRainbow(50);WIFI_Set();Blinker.begin(auth, WiFi.SSID().c_str(), WiFi.psk().c_str());break;
           default:break;
           }
       for(int i = 0; i <= 10 ; i++)//清空接收到的数据
