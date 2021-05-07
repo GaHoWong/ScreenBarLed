@@ -1,0 +1,67 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.30.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 GAHO, 11, LIC=14HV2-9DSJ0-300NC-78QNT-NB0K4-C0ESP
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.30.0.0
+Toolchain Path:  D:\Program Files\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.14
+Assembler:       Armasm.exe V6.14
+Linker/Locator:  ArmLink.exe V6.14
+Library Manager: ArmAr.exe V6.14
+Hex Converter:   FromElf.exe V6.14
+CPU DLL:         SARMCM3.DLL V5.30.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
+Dialog DLL:      TCM.DLL V1.42.0.0
+ 
+<h2>Project:</h2>
+F:\666666\screen-bar-led\2.Code\STM32_HAL\MDK-ARM\WS2812B_C8.uvprojx
+Project File Date:  05/07/2021
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.14', folder: 'D:\Program Files\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'WS2812B_C8'
+../Core/Src/main.c(193): warning: incompatible pointer types passing 'uint8_t (*)[200]' to parameter of type 'const char *' [-Wincompatible-pointer-types]
+                num = atoi(&USART3_RX_BUF);
+                           ^~~~~~~~~~~~~~
+D:\Program Files\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h(164): note: passing argument to parameter here
+extern _ARMABI int atoi(const char * /*nptr*/) __attribute__((__nonnull__(1)));
+                                             ^
+1 warning generated.
+compiling main.c...
+linking...
+Program Size: Code=18196 RO-data=692 RW-data=292 ZI-data=2884  
+FromELF: creating hex file...
+"WS2812B_C8\WS2812B_C8.axf" - 0 Error(s), 1 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
+                ARM.CMSIS.5.7.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.4.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.3.0.pack
+                Keil.STM32F1xx_DFP.2.3.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_WS2812B_C8
+  C:\Users\GAHO\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
+  C:\Users\GAHO\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.4.0
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
