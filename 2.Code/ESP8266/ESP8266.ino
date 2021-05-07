@@ -209,7 +209,7 @@ void miotMode(uint8_t mode)
     BLINKER_LOG("need set mode: ", mode);
 
     if (mode == BLINKER_CMD_MIOT_DAY) {//日光模式
-        // Your mode function
+        SET_RGB(255,255,255,180);
     }
     else if (mode == BLINKER_CMD_MIOT_NIGHT) {//夜光模式
         colorWipe(pixels.Color(255, 0, 0), 50);
