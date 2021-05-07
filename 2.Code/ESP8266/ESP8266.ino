@@ -290,7 +290,7 @@ void STM32_control(void){
                  theaterChase(pixels.Color(0, 0, 127), 50); // Blue
                  theaterChase(pixels.Color(127, 127, 127), 50); // White
                   break;
-          case 10:theaterChaseRainbow(50);WIFI_Set();Blinker.begin(auth, WiFi.SSID().c_str(), WiFi.psk().c_str());break;
+          case 10:colorWipe(pixels.Color(0, 255, 0), 50);WIFI_Set();Blinker.begin(auth, WiFi.SSID().c_str(), WiFi.psk().c_str());break;
           default:break;
           }
       for(int i = 0; i <= 10 ; i++)//清空接收到的数据
